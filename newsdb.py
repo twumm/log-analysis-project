@@ -12,7 +12,9 @@ def most_popular_articles():
     query = "select title, count(path) as views from articles join log on articles.slug = substring(path from 10) group by title order by views desc limit 3;"
     c.execute(query)
     popular_articles = c.fetchall()
-    print popular_articles
+    print "\nThe most popular articles of all time are: \n"
+    for row in popular_articles:
+        print "{0} - {1} views".format(*row)
     db.close()
 
 most_popular_articles()
@@ -29,7 +31,7 @@ group by title order by views desc limit 3;
 
 Question 2 - Who are the most popular article authors of all time?
 select name, count(path) as views from authors inner join articles on authors.id = articles.author 
-left join log on articles.slug = substring(path from 10) group by name order by views desc limit 1;
+left join log on articles.slug = substring(path from 10) group by name order by views desc;
 
 Question 3 - On which day did more than 1% of requests lead to errors
 
