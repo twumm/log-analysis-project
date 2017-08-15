@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # Code for the log analysis CLI app
 
 import psycopg2
