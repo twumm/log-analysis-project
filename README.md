@@ -22,7 +22,7 @@ The project makes use of the Linux-based virtual machine (VM)
 4. Python(preferable Python 3)
 5. Git bash terminal
 
-After install 1, 2 and 3 above, from your terminal, inside the **vagrant subdirectory/configuration**(from 3 above), run the command **vagrant up**. This will allow Vagrant to download the Linux operating system and install it.
+After installing 1, 2 and 3 above, from your terminal, inside the **vagrant subdirectory/configuration**(from 3 above), run the command **vagrant up**. This will allow Vagrant to download the Linux operating system and install it.
 
 Run **vagrant ssh** when **vagrant up** is done in order to log in to your Linux VM.
 
