@@ -33,4 +33,4 @@ The final step will be to **cd** into your **/vagrant** directory
 1. Clone the newsdb.py file into a folder on your local machine.
 2. Ensure you have the newsdata.sql file in the same folder(the vagrant folder) as the newsdb.py script.
 3. Run **psql newsdata.sql** to access the news database.
-4. Finallt, run **python newsdb.py** for the script to display the results.
+4. Finally, run **python newsdb.py** for the script to display the results.
