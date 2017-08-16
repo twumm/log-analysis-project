@@ -19,7 +19,7 @@ The project makes use of the Linux-based virtual machine (VM)
 2. [Install Vagrant](https://www.vagrantup.com/downloads.html)
 3. [Download the configuration for the VM](https://d17h27t6h515a5.cloudfront.net/topher/2017/August/59822701_fsnd-virtual-machine/fsnd-virtual-machine.zip)
 3. [Download the news database](https://d17h27t6h515a5.cloudfront.net/topher/2016/August/57b5f748_newsdata/newsdata.zip)
-4. Python(preferable Python 3)
+4. Python
 5. Git bash terminal
 
 After installing 1, 2 and 3 above, from your terminal, inside the **vagrant subdirectory/configuration**(from 3 above), run the command **vagrant up**. This will allow Vagrant to download the Linux operating system and install it.
@@ -32,5 +32,5 @@ The final step will be to **cd** into your **/vagrant** directory
 
 1. Clone the newsdb.py file into a folder on your local machine.
 2. Ensure you have the newsdata.sql file in the same folder(the vagrant folder) as the newsdb.py script.
-3. Run **psql newsdata.sql** to access the news database.
+3. Run **psql -d news -f newsdata.sql** to access the news database.
 4. Finally, run **python newsdb.py** for the script to display the results.
