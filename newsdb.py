@@ -6,7 +6,8 @@ DBNAME = "news"
 
 
 def get_query_results(query):
-    '''Establishes a connection to the database and runs a given SELECT query'''
+    '''Establishes a connection to the database and
+    runs a given SELECT query'''
     db = psycopg2.connect(database="news")
     c = db.cursor()
     c.execute(query)
@@ -60,6 +61,7 @@ def error_request():
 
 ''' make calls to the function in order to query the news database
  present the results'''
-most_popular_articles()
-most_popular_authors()
-error_request()
+if __name__ == "__main__":
+    most_popular_articles()
+    most_popular_authors()
+    error_request()
