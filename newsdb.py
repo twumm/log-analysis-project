@@ -1,12 +1,18 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 # Code for the log analysis CLI app
 
 import psycopg2
 DBNAME = "news"
 
-# connect to the database
-db = psycopg2.connect(database=DBNAME)
-c = db.cursor()
+
+def get_query_results(query):
+    '''Establishes a connection to the database and runs a given SELECT query'''
+    db = psycopg2.connect(database="news")
+    c = db.cursor()
+    c.execute(query)
+    result = c.fetchall()
+    db.close()
+    return result
 
 
 def most_popular_articles():
@@ -14,8 +20,7 @@ def most_popular_articles():
     query = ("select title, count(path) as views from articles join log on "
              "articles.slug = substring(path from 10) group by title order by "
              "views desc limit 3;")
-    c.execute(query)
-    popular_articles = c.fetchall()
+    popular_articles = get_query_results(query)
     print "\nThe most popular articles of all time are: \n"
     # loop through tuple, add to the print statement and
     # convert tuple to string
@@ -30,8 +35,7 @@ def most_popular_authors():
              "articles on authors.id = articles.author left join log on "
              "articles.slug = substring(path from 10) group by name "
              "order by views desc;")
-    c.execute(query)
-    popular_authors = c.fetchall()
+    popular_authors = get_query_results(query)
     print "\nThe most popular authors of all time are: \n"
     # loop through tuple, add to the print statement and
     # convert tuple to string
@@ -43,16 +47,15 @@ def most_popular_authors():
 def error_request():
     '''Display the day on which more than 1% of requests led to errors'''
     query = ("select time::date as day, cast(count(substring('404 NOT FOUND' "
-             "from status)) * 100.0 / count(substring('200 OK' from status)) "
-             "as decimal(10,1)) as error from log group by day having "
+             "from status)) * 100.0 / count(*) as decimal(10,1)) as error "
+             "from log group by day having "
              "count(substring('404 NOT FOUND' from status)) * 100.0 / "
-             "count(substring('200 OK' from status)) > 1;")
-    c.execute(query)
-    popular_authors = c.fetchall()
+             "count(*) > 1;")
+    error_requests = get_query_results(query)
     print "\nThe day with request errors more than 1%: \n"
     # loop through tuple, add to the print statement and
     # convert tuple to string
-    for row in popular_authors:
+    for row in error_requests:
         print "{0} - {1}% errors\n".format(*row)
 
 ''' make calls to the function in order to query the news database
@@ -60,5 +63,3 @@ def error_request():
 most_popular_articles()
 most_popular_authors()
 error_request()
-
-db.close()
